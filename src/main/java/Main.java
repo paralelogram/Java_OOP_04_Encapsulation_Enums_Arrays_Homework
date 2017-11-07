@@ -1,95 +1,29 @@
 import java.util.Scanner;
 
-public class Employee {
-    private String name;
-    private Departments department;
-    private double salary;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setDepartment(Departments department) {
-        this.department = department;
-    }
-    public void setSalary(double salary) {
-        if (salary > 0) {
-            this.salary = salary;
-        }
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-    public String getName() {
-        return name;
-    }
-    public Departments getDepartment() {
-        return department;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-
-        Employee employee = (Employee) o;
-
-        return department.equals(employee.department);
-    }
-
-    public static void main (String [] args) {
-        Employee [] employees = new Employee[5];
+public class Main {
+    public static void main(String [] args) {
+        String country;
+        System.out.println("in which country do you live?");
         Scanner scanner = new Scanner(System.in);
+        country = scanner.nextLine().toLowerCase();
 
-        System.out.println("input info about employees");
-        for (int i = 1; i <= employees.length; i++) {
-            employees[i] = new Employee();
-            System.out.println("Name: " + i);
-            employees[i].setName(scanner.nextLine());
-
-            System.out.println("Department: " + i);
-            employees[i].setDepartment(Departments.valueOf(scanner.nextLine().toUpperCase()));
-
-            System.out.println("Salary: " + i);
-            employees[i].setSalary(Double.valueOf(scanner.nextLine()));
-        }
-
-        System.out.println("please, enter department that you need");
-        Departments dep = Departments.valueOf(scanner.nextLine().toUpperCase());
-
-        for (int i = 0; i < employees.length; i++) {
-            if (dep == employees[i].department) {
-                System.out.print(employees[i].getName() + " ");
-                System.out.println(employees[i].getSalary());
-            }
-        }
-
-        System.out.println();
-
-        for(int i = 1; i < employees.length; ++i) {
-            for (int j = 0; j < employees.length - i; j++) {
-                if (employees[j].getSalary() < employees[j + 1].getSalary()) {
-                    double temp = employees[j].getSalary();
-                    employees[j].setSalary(employees[j + 1].getSalary());
-                    employees[j + 1].setSalary(temp);
-                }
-            }
-        }
-
-        System.out.println("sorted by salary\n");
-        for (int i = 0; i < employees.length; i++) {
-            System.out.print(employees[i].getName() + " ");
-            System.out.print(employees[i].getDepartment() + " ");
-            System.out.print(employees[i].getSalary() + "\n");
+        switch (country) {
+            case "algeria" : case "kenya" : case "uganda" : case "zambia" : case "zimbabwe" : case "egypt" :
+                System.out.println("your country is in " + Continents.AFRICA.toString().toLowerCase()); break;
+            case "taiwan" : case "thailand" : case "afghanistan" : case "nepal" : case "north korea" : case "uzbekistan" :
+                System.out.println("your country is in " + Continents.ASIA.toString().toLowerCase()); break;
+            case "italy" : case "san marino" : case "poland" : case "turkey" : case "latvia" : case "ukraine" :
+                System.out.println("your country is in " + Continents.EUROPE.toString().toLowerCase()); break;
+            case "grenada" : case "mexico" : case "panama" : case "cuba" : case "dominica" : case "haiti" :
+                System.out.println("your country is in " + Continents.NORTH_AMERICA.toString().toLowerCase()); break;
+            case "argentina" : case "paraguay" : case "suriname" : case "venezuela" : case "colombia" : case "ecuador" :
+                System.out.println("your country is in " + Continents.SOUTH_AMERICA.toString().toLowerCase());break;
+            case "australia" : case "palau" : case "tonga" : case "tuvalu" : case "vanuatu" : case "samoa" :
+                System.out.println("your country in " + Continents.AUSTRALIA_AND_OCEANIA.toString().toLowerCase());break;
         }
     }
 }
-enum Departments {
-    ADMINISTRATION, ACCOUNTING, MARKETING, PRODUCTION, SALES;
 
-    @Override
-    public String toString() {
-        String lowercase = name().toLowerCase(java.util.Locale.US);
-        return lowercase;
-    }
+enum Continents {
+    NORTH_AMERICA, SOUTH_AMERICA, ASIA, EUROPE, AFRICA, AUSTRALIA_AND_OCEANIA;
 }
